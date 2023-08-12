@@ -1,0 +1,6 @@
+pymongo
+fastapi
+bson
+typing
+requests
+uvicorn
