@@ -36,6 +36,6 @@ By identifying garbage in photos and recording the locations where it is found, 
 - The API responses can be processed by the frontend to display information to users.
 
 ## ScreenShot
-
+![Images](images/WasteX_backend_ScreenShot.PNG)
 
 
