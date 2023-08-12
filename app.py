@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from bson import ObjectId
 from typing import Annotated
 import json
+import datetime
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -63,3 +64,20 @@ def get_blogs( id: str):
     else:
         return JSONResponse(status_code=404, content={"message": "Blog not found"})
 
+
+@app.post("/check_once/")
+async def create_upload_file(lat: float, long: float):
+    if lat > 90 or lat < -90 or long > 180 or long < -180:
+        return JSONResponse(status_code=400,  content={"message": "Invalid latitude or longitude"})
+    
+    result = loc_collection.insert_one({"date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "lat": lat, "long": long})
+    if result:
+        return {"result": True, "recieved": str(result.inserted_id)}
+    
+    return JSONResponse(status_code=500,  content={"message": "Server Error"})
+
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
