@@ -1,10 +1,12 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from fastapi.responses import JSONResponse
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
 from bson import ObjectId
 from typing import Annotated
 import json
+import requests
+import re
 import datetime
 import os
 from dotenv import load_dotenv
@@ -13,6 +15,8 @@ load_dotenv()
 
 #  URIs
 MONGO_URI = str(os.getenv("MONGO_URI"))
+headers = {"Authorization": f"Bearer {os.getenv('HUGGINGFACE_API_KEY')}"}
+HUGGINGFACE_API_URL = str(os.getenv("HUGGINGFACE_API"))
 
 
 
@@ -63,6 +67,28 @@ def get_blogs( id: str):
         return {"blog": blog}
     else:
         return JSONResponse(status_code=404, content={"message": "Blog not found"})
+
+
+@app.post("/check/")
+async def create_upload_file(file: UploadFile, lat: float, long: float):
+    if lat > 90 or lat < -90 or long > 180 or long < -180:
+        return JSONResponse(status_code=400,  content={"message": "Invalid latitude or longitude"})
+
+    if file.content_type in ["image/png", "image/jpeg"]:
+        response = requests.request("POST", HUGGINGFACE_API_URL, headers=headers, data=await file.read())
+        for data in response.json():
+
+            if re.search(r"(trash)|(waste)|(garbage)|(dust)|(plastic)", data["label"], re.IGNORECASE) is not None and data["score"] >= 0.05:
+
+                result = loc_collection.insert_one({"date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "lat": lat, "long": long})
+                if result:
+                    return {"result": True, "recieved": str(result.inserted_id)}
+                else:    
+                    return JSONResponse(status_code=500,  content={"message": "Server Error"})
+        return JSONResponse(status_code=401,  content={"message": "Not A Garbage"})
+
+    else:
+        return JSONResponse(status_code=400,  content={"message": "Invalid file type"}) 
 
 
 @app.post("/check_once/")
