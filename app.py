@@ -2,6 +2,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 import json
 import requests
 import re
@@ -37,6 +38,13 @@ loc_collection = db["location"]
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Your routes and middleware go here
 @app.get("/")
@@ -97,6 +105,6 @@ async def create_upload_file(lat: float, long: float):
 
 
 
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="0.0.0.0", port=8000)
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
