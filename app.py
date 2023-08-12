@@ -2,7 +2,6 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, UploadFile
-from bson import ObjectId
 import json
 import requests
 import re
@@ -55,20 +54,14 @@ def get_blogs():
         blogs.append(blog)
     return {"blogs": blogs}
 
+# @app.get("/blogs")
+# def get_blogs():
+#     blogs = []
+#     for blog in blogs_collection.find():
+#         blog["_id"] = str(blog["_id"])
+#         blogs.append(blog)
+#     return {"blogs": blogs}
 
-@app.get("/blogs/{id}")
-def get_blogs( id: str):
-    try:
-        blog_id = ObjectId(id)
-    except:
-        return JSONResponse(status_code=400,  content={"message": "Invalid ID"})
-
-    blog = blogs_collection.find_one({"_id": blog_id})
-    if blog:
-        blog["_id"] = str(blog["_id"])
-        return {"blog": blog}
-    else:
-        return JSONResponse(status_code=404, content={"message": "Blog not found"})
 
 
 @app.post("/check/")

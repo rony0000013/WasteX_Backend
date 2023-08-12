@@ -1,6 +1,5 @@
 pymongo
 fastapi
-bson
 requests
 uvicorn
 python-dotenv
