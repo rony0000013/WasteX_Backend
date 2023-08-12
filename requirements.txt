@@ -4,3 +4,4 @@ bson
 requests
 uvicorn
 python-dotenv
+python-multipart
