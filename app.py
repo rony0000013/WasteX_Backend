@@ -3,7 +3,6 @@ from pymongo.server_api import ServerApi
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI, UploadFile
 from bson import ObjectId
-from typing import Annotated
 import json
 import requests
 import re
