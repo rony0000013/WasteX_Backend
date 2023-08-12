@@ -10,8 +10,6 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-import time
-time.sleep(30)
 
 
 #  URIs
