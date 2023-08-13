@@ -39,6 +39,6 @@ By identifying garbage in photos and recording the locations where it is found, 
 ![Images](images/WasteX_backend_ScreenShot.PNG)
 
 ## Postman Workspace 📁
-![Postman Workspace Link 🔗](https://wastex.postman.co/workspace/Team-Workspace~2dd390f7-a202-4730-8ac2-b2c630ca84d6/overview)
+[Postman Workspace Link 🔗](https://wastex.postman.co/workspace/Team-Workspace~2dd390f7-a202-4730-8ac2-b2c630ca84d6/overview)
 
 
