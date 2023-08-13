@@ -6,6 +6,8 @@ By identifying garbage in photos and recording the locations where it is found, 
 - MongoDB is a well-liked NoSQL database for holding and managing structured data.
 - Hugging Face API: An AI research company that offers potent models and APIs for computer vision and natural language processing workloads.
 - Python: The project's overall programming language.
+## Postman Workspace 📁
+[Postman Workspace Link 🔗](https://wastex.postman.co/workspace/Team-Workspace~2dd390f7-a202-4730-8ac2-b2c630ca84d6/overview)
 ## How it Works 🛠️
 1. '/check/' and '/check_once/' are the API's two primary endpoints.
 2. A coordinate (latitude and longitude) file and an image file are sent to the '/check/' endpoint. For garbage detection, it transmits the image to the Hugging Face API. The location data is saved in MongoDB if the AI algorithm identifies garbage with a particular level of confidence.
@@ -38,7 +40,6 @@ By identifying garbage in photos and recording the locations where it is found, 
 ## ScreenShot
 ![Images](images/WasteX_backend_ScreenShot.PNG)
 
-## Postman Workspace 📁
-[Postman Workspace Link 🔗](https://wastex.postman.co/workspace/Team-Workspace~2dd390f7-a202-4730-8ac2-b2c630ca84d6/overview)
+
 
 
